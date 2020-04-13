@@ -1,0 +1,12 @@
+/public/bitrix
+/public/upload
+/vendor
+/logs
+/access_log
+/error_log
+/.idea
+*.tmp
+*.txt
+*.xml
+*.json
+.DS_Store
