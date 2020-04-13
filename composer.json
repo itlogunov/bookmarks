@@ -1,0 +1,23 @@
+{
+    "name": "itlogunov/lenvendo",
+    "description": "Тестовое задание для разработчика 1С-Битрикс",
+    "type": "project",
+    "authors": [
+        {
+            "name": "itlogunov",
+            "email": "logunov.vadim@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.11",
+        "phpunit/phpunit": "^9.1",
+        "symfony/dom-crawler": "^5.0",
+        "intervention/image": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\" : "App/"
+        }
+    }
+}
