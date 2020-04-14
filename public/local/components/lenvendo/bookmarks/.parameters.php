@@ -32,17 +32,13 @@ while ($row = $query->Fetch()) {
  */
 $arComponentParameters = [
     'GROUPS' => [
-        'SEO' => [
-            'NAME' => 'Настройки SEO',
-            'SORT' => 1000
-        ],
         'LIST_SETTINGS' => [
-            'NAME' => 'Настройки страницы списка закладок',
-            'SORT' => 1100
+            'NAME' => 'Настройки списка закладок',
+            'SORT' => 900
         ],
-        'DETAIL_SETTINGS' => [
-            'NAME' => 'Настройки страницы карточки закладки',
-            'SORT' => 1200
+        'SEO' => [
+            'NAME' => 'Настройки SEO детальной страницы закладки',
+            'SORT' => 1000
         ]
     ],
     'PARAMETERS' => [
@@ -69,14 +65,6 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
             'DEFAULT' => '3',
         ),
-
-        // Ссылка на список закладок
-        'LIST_URL' => [
-            'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL, ведущий на список закладок',
-            'TYPE' => 'STRING',
-            'DEFAULT' => '/bookmarks/'
-        ],
 
         // SEO-параметры
         'DETAIL_SET_PAGE_TITLE' => [
@@ -115,6 +103,10 @@ $arComponentParameters = [
                 'NAME' => 'Страница закладки',
                 'DEFAULT' => 'detail/#ELEMENT_ID#/',
             ],
+            'add' => [
+                'NAME' => 'Страница добавления закладки',
+                'DEFAULT' => 'add/',
+            ],
         ],
 
         // Кеширование
@@ -128,7 +120,7 @@ $arComponentParameters = [
     ]
 ];
 
-// Настройка постраничной навигации
+// Добавляем настройку постраничной навигации
 CIBlockParameters::AddPagerSettings(
     $arComponentParameters,
     'Закладки',
@@ -136,5 +128,5 @@ CIBlockParameters::AddPagerSettings(
     false
 );
 
-// Если закладка не найдена, добавим дополнительную настройку
+// Добавим настройку 404 страницы, на случай, если закладка не будет найдена
 CIBlockParameters::Add404Settings($arComponentParameters, $arCurrentValues);

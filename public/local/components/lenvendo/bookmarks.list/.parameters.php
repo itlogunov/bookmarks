@@ -55,12 +55,20 @@ $arComponentParameters = [
             'DEFAULT' => '3',
         ],
 
-        // Шаблон ссылки на детальную страницу закладки
+        // Ссылка на детальную страницу закладки
         'ELEMENT_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL, ведущий на страницу с содержимым закладки',
+            'NAME' => 'URL на детальную страницу закладки',
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/detail/#ELEMENT_ID#/'
+        ],
+
+        // Ссылка на детальную страницу закладки
+        'ADD_URL' => [
+            'PARENT' => 'URL_TEMPLATES',
+            'NAME' => 'URL добавления новой закладки',
+            'TYPE' => 'STRING',
+            'DEFAULT' => '/bookmarks/add/'
         ],
 
         // Кеширование

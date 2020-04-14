@@ -18,7 +18,7 @@ use Bitrix\Main\Loader;
 use Bitrix\Iblock\InheritedProperty\ElementValues;
 
 if (!Loader::includeModule('iblock')) {
-    ShowError('Модуль «Информационные блоки» не установлен');
+    ShowError('Модуль «Информационные блоки» не был подключен');
     return;
 }
 
@@ -120,13 +120,11 @@ if ($this->StartResultCache(false, $cacheDependence)) {
         $arResult['ITEMS'][] = $item;
     }
 
-    /*
-     * Постраничная навигация
-     */
+    // Постраничная навигация
     $arResult['NAV_STRING'] = $query->GetPageNavString(
         $arParams['PAGER_TITLE'],
         $arParams['PAGER_TEMPLATE'],
-        $arParams['PAGER_SHOW_ALWAYS'],
+        ($arParams['PAGER_SHOW_ALWAYS'] == 'N') ? false : $arParams['PAGER_SHOW_ALWAYS'],
         $this
     );
 

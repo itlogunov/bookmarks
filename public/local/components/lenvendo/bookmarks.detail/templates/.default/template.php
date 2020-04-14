@@ -20,7 +20,7 @@ $this->setFrameMode(false);
 ?>
 
 <article>
-    <p>Заголовок страницы: <?= $arResult['NAME']; ?></p>
+    <p>Url страницы: <a href="<?= $arResult['NAME']; ?>" target="_blank"><?= $arResult['NAME']; ?></a></p>
     <p>Дата добавления: <?= $arResult['DATE_CREATE']; ?></p>
 
     <?php if (!empty($arResult['DETAIL_PICTURE'])): ?>
@@ -31,9 +31,9 @@ $this->setFrameMode(false);
         </p>
     <?php endif ?>
 
-    <p>URL страницы: <?= $arResult['PROPERTIES']['URL']['VALUE']; ?></p>
-    <p>META Description: <?= $arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']; ?></p>
-    <p>META Keywords: <?= $arResult['PROPERTIES']['META_KEYWORDS']['VALUE']; ?></p>
+    <p>Meta Title: <?= $arResult['PROPERTIES']['META_TITLE']['VALUE']; ?></p>
+    <p>Meta Description: <?= $arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']; ?></p>
+    <p>Meta Keywords: <?= $arResult['PROPERTIES']['META_KEYWORDS']['VALUE']; ?></p>
 
     <p><a href="<?= $arResult['LIST_URL']; ?>">В список закладок</a></p>
 </article>

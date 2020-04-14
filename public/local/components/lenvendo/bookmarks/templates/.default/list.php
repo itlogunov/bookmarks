@@ -21,21 +21,27 @@ $this->setFrameMode(true);
 
 <?php
 $APPLICATION->IncludeComponent(
-    "lenvendo:bookmarks.list",
-    ".default",
-    array(
+    'lenvendo:bookmarks.list',
+    '.default',
+    [
         'CACHE_TYPE' => $arParams['CACHE_TYPE'],
         'CACHE_TIME' => $arParams['CACHE_TIME'],
         'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],
-        "ELEMENT_COUNT" => $arParams['LIST_ELEMENT_COUNT'],
-        "ELEMENT_URL" => $arResult['ELEMENT_URL'],
-        "IBLOCK_ID" => $arParams['IBLOCK_ID'],
-        "IBLOCK_TYPE" => $arParams['IBLOCK_TYPE'],
+        'ELEMENT_COUNT' => $arParams['LIST_ELEMENT_COUNT'],
+        'ELEMENT_URL' => $arResult['ELEMENT_URL'],
+        'ADD_URL' => $arResult['ADD_URL'],
+        'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+        'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
+        'DISPLAY_BOTTOM_PAGER' => $arParams['DISPLAY_BOTTOM_PAGER'],
+        'DISPLAY_TOP_PAGER' => $arParams['DISPLAY_TOP_PAGER'],
         'MESSAGE_404' => $arParams['MESSAGE_404'],
         'SET_STATUS_404' => $arParams['SET_STATUS_404'],
         'SHOW_404' => $arParams['SHOW_404'],
         'FILE_404' => $arParams['FILE_404'],
         'PAGER_TEMPLATE' => $arParams['PAGER_TEMPLATE'],
         'PAGER_TITLE' => $arParams['PAGER_TITLE'],
-    )
+        'PAGER_SHOW_ALWAYS' => $arParams['PAGER_SHOW_ALWAYS'],
+        'COMPONENT_TEMPLATE' => '.default'
+    ],
+    $component
 );

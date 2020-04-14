@@ -2,9 +2,9 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/header.php';
 $APPLICATION->SetTitle("Закладки");
 ?><?$APPLICATION->IncludeComponent(
-	"lenvendo:bookmarks",
-	"",
-	Array(
+	"lenvendo:bookmarks", 
+	".default", 
+	array(
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "3600",
 		"CACHE_TYPE" => "A",
@@ -17,16 +17,20 @@ $APPLICATION->SetTitle("Закладки");
 		"FILE_404" => "",
 		"IBLOCK_ID" => "3",
 		"IBLOCK_TYPE" => "services",
-		"LIST_ELEMENT_COUNT" => "3",
-		"LIST_URL" => "/bookmarks/",
+		"LIST_ELEMENT_COUNT" => "4",
 		"MESSAGE_404" => "",
 		"PAGER_SHOW_ALWAYS" => "N",
 		"PAGER_TEMPLATE" => "modern",
 		"PAGER_TITLE" => "Закладки",
 		"SEF_FOLDER" => "/bookmarks/",
 		"SEF_MODE" => "Y",
-		"SEF_URL_TEMPLATES" => Array("detail"=>"detail/#ELEMENT_ID#/"),
 		"SET_STATUS_404" => "Y",
-		"SHOW_404" => "Y"
-	)
+		"SHOW_404" => "Y",
+		"COMPONENT_TEMPLATE" => ".default",
+		"SEF_URL_TEMPLATES" => array(
+			"detail" => "detail/#ELEMENT_ID#/",
+			"add" => "add/",
+		)
+	),
+	false
 );?>
