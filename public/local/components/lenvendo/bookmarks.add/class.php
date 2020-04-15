@@ -224,7 +224,7 @@ class BookmarksAdd extends CBitrixComponent
         $data = [
             'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
             'NAME' => $this->url,
-            'CODE' => sha1($this->password),
+            'CODE' => (strlen($this->password) > 0) ? sha1($this->password) : '',
             'ACTIVE' => 'Y',
             'PROPERTY_VALUES' => [
                 'META_TITLE' => $this->metaTitle,
