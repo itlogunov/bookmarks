@@ -37,7 +37,8 @@ $currentPage = $APPLICATION->GetCurPage();
             <input type="text" class="form-control" name="url" placeholder="Вставьте URL" required>
         </div>
         <div class="col">
-            <input type="text" class="form-control" name="password" placeholder="Напишите пароль для удаления">
+            <input type="text" class="form-control" name="password" placeholder="Напишите пароль для удаления"
+                   autocomplete="off">
         </div>
     </div>
 
