@@ -80,6 +80,11 @@ if ($this->StartResultCache(false, $cacheDependence)) {
         'CHECK_PERMISSIONS' => 'Y'
     ];
 
+    // Если передан дополнительный параметры для фильтрации, добавим в фильтр
+    if (count($arParams['FILTER'])) {
+        $filter = array_merge($filter, $arParams['FILTER']);
+    }
+
     $query = CIBlockElement::GetList(
         $sorting,
         $filter,
