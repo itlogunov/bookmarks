@@ -37,21 +37,23 @@ Use \Bitrix\Main\Localization\Loc;
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Главная</a>
-            </li>
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="/bookmarks/" id="bookmarks" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">Закладки</a>
-                <div class="dropdown-menu" aria-labelledby="bookmarks">
-                    <a class="dropdown-item" href="/bookmarks/">Список</a>
-                    <a class="dropdown-item" href="/bookmarks/add/">Добавить</a>
-                    <a class="dropdown-item" href="/bookmarks/excel/">Выгрузить</a>
-                </div>
-            </li>
-        </ul>
+    <div class="collapse navbar-collapse">
+
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "header",
+            Array(
+                "ROOT_MENU_TYPE" => "top",
+                "MAX_LEVEL" => "1",
+                "CHILD_MENU_TYPE" => "left",
+                "USE_EXT" => "Y",
+                "MENU_CACHE_TYPE" => "A",
+                "MENU_CACHE_TIME" => "3600",
+                "MENU_CACHE_USE_GROUPS" => "Y",
+                "MENU_CACHE_GET_VARS" => []
+            )
+        ); ?>
+
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Поиск" aria-label="Поиск">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Найти</button>
