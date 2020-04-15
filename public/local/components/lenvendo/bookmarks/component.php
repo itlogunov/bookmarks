@@ -16,6 +16,10 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @global CMain $APPLICATION */
 
 use Bitrix\Iblock\Component\Tools;
+use Bitrix\Iblock\ElementTable;
+use Bitrix\Main\Loader;
+
+Loader::includeModule('iblock');
 
 // Если включен режим ЧПУ
 if ($arParams['SEF_MODE'] == 'Y') {
@@ -43,6 +47,11 @@ if ($arParams['SEF_MODE'] == 'Y') {
     if ($componentPage == 'detail') {
         if (!(isset($arVariables['ELEMENT_ID']) && ctype_digit($arVariables['ELEMENT_ID']))) {
             $notFound = true;
+        } else {
+            $count = ElementTable::getById((int)$arVariables['ELEMENT_ID'])->getSelectedRowsCount();
+            if ($count == 0) {
+                $notFound = true;
+            }
         }
     }
 
@@ -100,6 +109,11 @@ if ($arParams['SEF_MODE'] == 'Y') {
     if ($componentPage == 'detail') {
         if (!(isset($arVariables['ELEMENT_ID']) && ctype_digit($arVariables['ELEMENT_ID']))) {
             $notFound = true;
+        } else {
+            $count = ElementTable::getById((int)$arVariables['ELEMENT_ID'])->getSelectedRowsCount();
+            if ($count == 0) {
+                $notFound = true;
+            }
         }
     }
 

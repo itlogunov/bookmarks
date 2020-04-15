@@ -31,7 +31,7 @@ $currentPage = $APPLICATION->GetCurPage();
     </div>
 <?php endif; ?>
 
-<form action="<?= $currentPage; ?>" class="justify-content-center mt-4">
+<form action="<?= $currentPage; ?>" id="js-bookmark-add-form" class="justify-content-center mt-4">
     <div class="form-row">
         <div class="col">
             <input type="text" class="form-control" name="url" placeholder="Вставьте URL" required>
@@ -42,9 +42,11 @@ $currentPage = $APPLICATION->GetCurPage();
         </div>
     </div>
 
-    <div class="mt-4 mb-4" role="group">
+    <div class="mt-4 mb-4" role="group" id="bookmark-buttons">
         <button type="submit" class="btn btn-primary">Добавить</button>
         <br>
         <a href="<?= $arParams['LIST_URL']; ?>" class="btn btn-link">Вернуться в список</a>
     </div>
+
+    <img src="<?= $templateFolder; ?>/preloader.gif" id="preloader" alt="загрузка">
 </form>
