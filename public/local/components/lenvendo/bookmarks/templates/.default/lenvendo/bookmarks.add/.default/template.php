@@ -32,8 +32,18 @@ $currentPage = $APPLICATION->GetCurPage();
 <?php endif; ?>
 
 <form action="<?= $currentPage; ?>" class="justify-content-center mt-4">
-    <div class="form-group">
-        <input type="text" class="form-control" name="url" placeholder="Вставьте URL">
+    <div class="form-row">
+        <div class="col">
+            <input type="text" class="form-control" name="url" placeholder="Вставьте URL" required>
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="password" placeholder="Напишите пароль для удаления">
+        </div>
     </div>
-    <button type="submit" class="btn btn-link">Добавить</button>
+
+    <div class="mt-4 mb-4" role="group">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+        <br>
+        <a href="<?= $arParams['LIST_URL']; ?>" class="btn btn-link">Вернуться в список</a>
+    </div>
 </form>

@@ -19,7 +19,9 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 $this->setFrameMode(false);
 ?>
 
-<div class="card">
+<div class="alert alert-danger mb-2 mt-4 hidden" role="alert" id="errors"></div>
+
+<div class="card" id="bookmark" data-url="<?= $arResult['DETAIL_URL']; ?>">
     <?php if (!empty($arResult['DETAIL_PICTURE'])): ?>
         <img class="card-img-top-favicon" src="<?= $arResult['DETAIL_PICTURE']['SRC']; ?>"
              alt="<?= $arResult['DETAIL_PICTURE']['ALT']; ?>"
@@ -37,6 +39,7 @@ $this->setFrameMode(false);
 
         <div class="text-right">
             <a href="<?= $arResult['NAME']; ?>" class="btn btn-link" target="_blank">Перейти на страницу</a>
+            <button class="btn btn-link" onclick="deleteBookmark();">Удалить закладку</button>
         </div>
     </div>
 </div>

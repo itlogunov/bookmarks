@@ -33,6 +33,12 @@ if (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc') {
 }
 ?>
 
+<?php if (isset($_GET['delete-success']) && !isset($_GET['PAGEN_1'])): ?>
+    <div class="alert alert-success mb-0 mt-4" role="alert">
+        Закладка была успешно удалена!
+    </div>
+<?php endif; ?>
+
 <?php
 $APPLICATION->IncludeComponent(
     'lenvendo:bookmarks.list',

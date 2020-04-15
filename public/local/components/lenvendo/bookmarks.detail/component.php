@@ -12,6 +12,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @var string $componentTemplate */
 /** @global CDatabase $DB */
 /** @global CUser $USER */
+
 /** @global CMain $APPLICATION */
 
 use Bitrix\Main\Loader;
@@ -23,13 +24,17 @@ if (!Loader::includeModule('iblock')) {
     return;
 }
 
+$arResult['ERRORS'] = [];
 if (!isset($arParams['CACHE_TIME'])) {
     $arParams['CACHE_TIME'] = 3600;
 }
 
 $arParams['IBLOCK_TYPE'] = trim($arParams['IBLOCK_TYPE']);
 $arParams['IBLOCK_ID'] = (int)$arParams['IBLOCK_ID'];
-$arParams['ELEMENT_ID'] = empty($arParams['ELEMENT_ID']) ? 0 : intval($arParams['ELEMENT_ID']);
+$arParams['LIST_URL'] = trim($arParams['LIST_URL']);
+$arParams['ELEMENT_URL'] = trim($arParams['ELEMENT_URL']);
+
+$arParams['ELEMENT_ID'] = empty($arParams['ELEMENT_ID']) ? 0 : (int)$arParams['ELEMENT_ID'];
 if (empty($arParams['ELEMENT_ID'])) {
     $notFound = true;
 }
@@ -45,9 +50,6 @@ if ($notFound) {
 
     return;
 }
-
-$arParams['LIST_URL'] = trim($arParams['LIST_URL']);
-$arParams['ELEMENT_URL'] = trim($arParams['ELEMENT_URL']);
 
 $cacheDependence = ($arParams['CACHE_GROUPS'] === 'N' ? false : $USER->GetGroups());
 if ($this->StartResultCache(false, $cacheDependence)) {
@@ -86,7 +88,7 @@ if ($this->StartResultCache(false, $cacheDependence)) {
 
         if ($row = $query->GetNextElement()) {
 
-            $arResult = $row->GetFields();
+            $arResult = array_merge($arResult, $row->GetFields());
 
             // Свойства
             $arResult['PROPERTIES'] = $row->GetProperties();
@@ -133,7 +135,8 @@ if ($this->StartResultCache(false, $cacheDependence)) {
             [
                 'ID',
                 'NAME',
-                'IPROPERTY_VALUES'
+                'IPROPERTY_VALUES',
+                'ERRORS'
             ]
         );
         $this->IncludeComponentTemplate();

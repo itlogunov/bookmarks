@@ -18,6 +18,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 use GuzzleHttp\Client;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Application;
+use Bitrix\Iblock\ElementTable;
 use Symfony\Component\DomCrawler\Crawler;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -26,6 +27,7 @@ class BookmarksAdd extends CBitrixComponent
     private $url;
     private $domain;
     private $favicon;
+    private $password;
     private $metaTitle = '';
     private $metaKeywords = '';
     private $metaDescription = '';
@@ -71,6 +73,7 @@ class BookmarksAdd extends CBitrixComponent
         $this->_checkModules();
         $this->_request = Application::getInstance()->getContext()->getRequest();
         $this->url = $this->_request->get('url');
+        $this->password = $this->_request->get('password');
 
         if (isset($this->url)) {
             $this->parseUrl();
@@ -139,7 +142,7 @@ class BookmarksAdd extends CBitrixComponent
      */
     private function checkBookmarkDb(): bool
     {
-        $query = Bitrix\Iblock\ElementTable::getList([
+        $query = ElementTable::getList([
             'order' => [],
             'select' => ['ID'],
             'filter' => ['IBLOCK_ID' => $this->arParams['IBLOCK_ID'], 'ACTIVE' => 'Y', 'NAME' => $this->url],
@@ -221,6 +224,7 @@ class BookmarksAdd extends CBitrixComponent
         $data = [
             'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
             'NAME' => $this->url,
+            'CODE' => sha1($this->password),
             'ACTIVE' => 'Y',
             'PROPERTY_VALUES' => [
                 'META_TITLE' => $this->metaTitle,
