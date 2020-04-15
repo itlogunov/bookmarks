@@ -10,7 +10,7 @@ $APPLICATION->SetTitle('Тестовое задание для разработ�
     <div class="lead mt-5 text-left">
         <p>Доступ в административную часть:
         <ul>
-            <li>login: levendo</li>
+            <li>login: lenvendo</li>
             <li>password: dBXq4J9$rU</li>
         </ul>
         </p>
