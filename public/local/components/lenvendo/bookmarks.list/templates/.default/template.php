@@ -14,7 +14,10 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @var string $templateFile */
 /** @var string $templateFolder */
 /** @var string $componentPath */
+
 /** @var CBitrixComponent $component */
+
+use Bitrix\Main\Localization\Loc;
 
 $this->setFrameMode(false);
 $currentPage = $APPLICATION->GetCurPage();
@@ -23,8 +26,9 @@ $currentPage = $APPLICATION->GetCurPage();
 <?php if (isset($arResult['ITEMS']) && count($arResult['ITEMS']) > 0): ?>
 
     <div class="btn-group mt-4 mb-4" role="group">
-        <a href="<?= $arParams['ADD_URL']; ?>" class="btn btn-primary">Добавить еще одну закладку</a>
-        <a href="<?= $currentPage . 'export.php?list=' . $arParams['IBLOCK_ID'] ; ?>" class="btn btn-link">Выгрузить в эксель</a>
+        <a href="<?= $arParams['ADD_URL']; ?>" class="btn btn-primary"><?= Loc::getMessage('ADD_BOOKMARK'); ?></a>
+        <a href="<?= $currentPage . 'export.php?list=' . $arParams['IBLOCK_ID']; ?>"
+           class="btn btn-link"><?= Loc::getMessage('EXPORT_TO_EXCEL'); ?></a>
     </div>
 
     <?php if ($arParams['DISPLAY_TOP_PAGER'] == 'Y'): ?>
@@ -38,20 +42,20 @@ $currentPage = $APPLICATION->GetCurPage();
                 <?php if (!isset($_GET['sort']) || htmlspecialchars($_GET['sort']) == 'date'): ?>
                     <?php if (!isset($_GET['order']) || htmlspecialchars($_GET['order']) == 'desc'): ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=date&order=asc', ['sort', 'order']); ?>">
-                            Дата ↓
+                            <?= Loc::getMessage('DATE'); ?> ↓
                         </a>
                     <?php elseif (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc'): ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('', ['sort', 'order']); ?>">
-                            Дата ↑
+                            <?= Loc::getMessage('DATE'); ?> ↑
                         </a>
                     <?php else: ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=date&order=asc', ['sort', 'order']); ?>">
-                            Дата ↓
+                            <?= Loc::getMessage('DATE'); ?> ↓
                         </a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="<?= $APPLICATION->GetCurPageParam('', ['sort', 'order']); ?>">
-                        Дата
+                        <?= Loc::getMessage('DATE'); ?>
                     </a>
                 <?php endif; ?>
             </th>
@@ -60,20 +64,20 @@ $currentPage = $APPLICATION->GetCurPage();
                 <?php if (isset($_GET['sort']) && htmlspecialchars($_GET['sort']) == 'url'): ?>
                     <?php if (!isset($_GET['order']) || htmlspecialchars($_GET['order']) == 'desc'): ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=asc', ['sort', 'order']); ?>">
-                            URL ↓
+                            <?= Loc::getMessage('URL'); ?> ↓
                         </a>
                     <?php elseif (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc'): ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=desc', ['sort', 'order']); ?>">
-                            URL ↑
+                            <?= Loc::getMessage('URL'); ?> ↑
                         </a>
                     <?php else: ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=asc', ['sort', 'order']); ?>">
-                            URL ↓
+                            <?= Loc::getMessage('URL'); ?> ↓
                         </a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=asc', ['sort', 'order']); ?>">
-                        URL
+                        <?= Loc::getMessage('URL'); ?>
                     </a>
                 <?php endif; ?>
             </th>
@@ -81,24 +85,24 @@ $currentPage = $APPLICATION->GetCurPage();
                 <?php if (isset($_GET['sort']) && htmlspecialchars($_GET['sort']) == 'title'): ?>
                     <?php if (!isset($_GET['order']) || htmlspecialchars($_GET['order']) == 'desc'): ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=asc', ['sort', 'order']); ?>">
-                            Заголовок ↓
+                            <?= Loc::getMessage('TITLE'); ?> ↓
                         </a>
                     <?php elseif (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc'): ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=desc', ['sort', 'order']); ?>">
-                            Заголовок ↑
+                            <?= Loc::getMessage('TITLE'); ?> ↑
                         </a>
                     <?php else: ?>
                         <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=asc', ['sort', 'order']); ?>">
-                            Заголовок ↓
+                            <?= Loc::getMessage('TITLE'); ?> ↓
                         </a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=asc', ['sort', 'order']); ?>">
-                        Заголовок
+                        <?= Loc::getMessage('TITLE'); ?>
                     </a>
                 <?php endif; ?>
             </th>
-            <th scope="col">Действия</th>
+            <th scope="col"><?= Loc::getMessage('ACTIONS'); ?></th>
         </tr>
         </thead>
         <tbody>
@@ -115,7 +119,7 @@ $currentPage = $APPLICATION->GetCurPage();
                 <td><a href="<?= $item['NAME']; ?>" target="_blank"><?= $item['NAME']; ?></a></td>
                 <td><?= $item['PROPERTIES']['META_TITLE']['VALUE']; ?></td>
                 <td>
-                    <a href="<?= $item['DETAIL_PAGE_URL']; ?>">Подробно</a>
+                    <a href="<?= $item['DETAIL_PAGE_URL']; ?>"><?= Loc::getMessage('DETAILS'); ?></a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -128,7 +132,8 @@ $currentPage = $APPLICATION->GetCurPage();
 
 <?php else: ?>
 
-    <p class="mt-5">Добавьте свою первую закладку <a href="<?= $arParams['ADD_URL']; ?>" class="btn btn-primary ml-2">Добавить
-            закладку</a></p>
+    <p class="mt-5"><?= Loc::getMessage('ADD_BOOKMARK_FIRST'); ?>
+        <a href="<?= $arParams['ADD_URL']; ?>" class="btn btn-primary ml-2"><?= Loc::getMessage('ADD'); ?></a>
+    </p>
 
 <?php endif; ?>

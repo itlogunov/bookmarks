@@ -14,7 +14,10 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @var string $templateFile */
 /** @var string $templateFolder */
 /** @var string $componentPath */
+
 /** @var CBitrixComponent $component */
+
+use Bitrix\Main\Localization\Loc;
 
 $this->setFrameMode(false);
 ?>
@@ -28,22 +31,22 @@ $this->setFrameMode(false);
              title="<?= $arResult['DETAIL_PICTURE']['TITLE']; ?>"/>
     <?php endif; ?>
     <div class="card-body text-left">
-        <h5 class="card-title mb-4">Заголовок: <?= $arResult['PROPERTIES']['META_TITLE']['VALUE']; ?></h5>
-        <h5 class="card-subtitle mb-3 text-muted">Дата добавления: <?= $arResult['DATE_CREATE']; ?></h5>
+        <h5 class="card-title mb-4"><?= Loc::getMessage('TITLE'); ?> <?= $arResult['PROPERTIES']['META_TITLE']['VALUE']; ?></h5>
+        <h5 class="card-subtitle mb-3 text-muted"><?= Loc::getMessage('DATE'); ?> <?= $arResult['DATE_CREATE']; ?></h5>
         <?php if ($arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']): ?>
-            <p class="card-text">Description: <?= $arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']; ?></p>
+            <p class="card-text"><?= Loc::getMessage('META_DESCRIPTION'); ?> <?= $arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']; ?></p>
         <?php endif; ?>
         <?php if ($arResult['PROPERTIES']['META_KEYWORDS']['VALUE']): ?>
-            <p class="card-text">Keywords: <?= $arResult['PROPERTIES']['META_KEYWORDS']['VALUE']; ?></p>
+            <p class="card-text"><?= Loc::getMessage('META_KEYWORDS'); ?> <?= $arResult['PROPERTIES']['META_KEYWORDS']['VALUE']; ?></p>
         <?php endif; ?>
 
         <div class="text-right">
-            <a href="<?= $arResult['NAME']; ?>" class="btn btn-link" target="_blank">Перейти на страницу</a>
-            <button class="btn btn-link" onclick="deleteBookmark();">Удалить закладку</button>
+            <a href="<?= $arResult['NAME']; ?>" class="btn btn-link" target="_blank"><?= Loc::getMessage('LINK'); ?></a>
+            <button class="btn btn-link" onclick="deleteBookmark();"><?= Loc::getMessage('DELETE'); ?></button>
         </div>
     </div>
 </div>
 
 <div class="text-left mt-5">
-    <a href="<?= $arResult['LIST_URL']; ?>" class="btn btn-link">Вернуться в список закладок</a>
+    <a href="<?= $arResult['LIST_URL']; ?>" class="btn btn-link"><?= Loc::getMessage('BACK_LINK'); ?></a>
 </div>

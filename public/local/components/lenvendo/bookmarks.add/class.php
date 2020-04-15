@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Application;
 use Bitrix\Iblock\ElementTable;
+use Bitrix\Main\Localization\Loc;
 use Symfony\Component\DomCrawler\Crawler;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -44,7 +45,7 @@ class BookmarksAdd extends CBitrixComponent
     private function _checkModules()
     {
         if (!Loader::includeModule('iblock')) {
-            throw new \Exception('Модуль «Информационные блоки» не был подключен');
+            throw new \Exception(Loc::getMessage('ERROR_MODULE_IBLOCK'));
         }
 
         return true;
@@ -125,7 +126,7 @@ class BookmarksAdd extends CBitrixComponent
     private function checkUrl(): bool
     {
         if (!strlen($this->url) > 0 || filter_var($this->url, FILTER_VALIDATE_URL) === false) {
-            $this->arResult['ERRORS'][] = 'Введите URL';
+            $this->arResult['ERRORS'][] = Loc::getMessage('ERROR_EMPTY_URL');
             return false;
         }
 
@@ -150,7 +151,7 @@ class BookmarksAdd extends CBitrixComponent
             'offset' => 0
         ]);
         if ($row = $query->fetch()) {
-            $this->arResult['ERRORS'][] = 'Закладка существует';
+            $this->arResult['ERRORS'][] = Loc::getMessage('ERROR_BOOKMARK_FOUND');
             return false;
         }
 
@@ -172,11 +173,11 @@ class BookmarksAdd extends CBitrixComponent
             $response = $client->request('GET', $this->url);
             $statusCode = $response->getStatusCode();
             if ($statusCode != 200) {
-                $this->arResult['ERRORS'][] = 'Запрошенный URL недоступен';
+                $this->arResult['ERRORS'][] = Loc::getMessage('ERROR_URL_NOT_AVAILABLE');
                 return false;
             }
         } catch (Exception $exception) {
-            $this->arResult['ERRORS'][] = 'Запрошенный URL недоступен';
+            $this->arResult['ERRORS'][] = Loc::getMessage('ERROR_URL_NOT_AVAILABLE');
             return false;
         }
 

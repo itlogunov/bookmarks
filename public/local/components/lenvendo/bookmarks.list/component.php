@@ -15,12 +15,13 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @global CMain $APPLICATION */
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Bitrix\Iblock\InheritedProperty\ElementValues;
 
 if (!Loader::includeModule('iblock')) {
-    ShowError('Модуль «Информационные блоки» не был подключен');
+    ShowError(Loc::getMessage('ERROR_MODULE_IBLOCK'));
     return;
 }
 

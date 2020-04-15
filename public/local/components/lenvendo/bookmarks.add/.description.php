@@ -4,9 +4,11 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
+use Bitrix\Main\Localization\Loc;
+
 $arComponentDescription = [
-    'NAME' => 'Добавление закладки',
-    'DESCRIPTION' => 'Добавление новой закладки',
+    'NAME' => Loc::getMessage('ADD_NAME'),
+    'DESCRIPTION' => Loc::getMessage('ADD_DESCRIPTION'),
     // 'ICON' => '/images/icon.gif',
     'CACHE_PATH' => 'Y',
     'SORT' => 40,
@@ -16,7 +18,7 @@ $arComponentDescription = [
         'NAME' => 'Lenvendo',
         'CHILD' => [
             'ID' => 'lenvendo_bookmarks',
-            'NAME' => 'Закладки'
+            'NAME' => Loc::getMessage('BOOKMARKS')
         ]
     ]
 ];

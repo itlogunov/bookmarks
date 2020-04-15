@@ -5,6 +5,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 }
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 
 if (!Loader::includeModule('iblock')) {
     return;
@@ -35,7 +36,7 @@ $arComponentParameters = [
         // Тип инфоблока
         'IBLOCK_TYPE' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Выберите тип инфоблока',
+            'NAME' => Loc::getMessage('CHOOSE_TYPE_OF_INFO_BLOCK'),
             'TYPE' => 'LIST',
             'VALUES' => $infoBlocksTypes,
             'REFRESH' => 'Y',
@@ -43,7 +44,7 @@ $arComponentParameters = [
         // Инфоблок
         'IBLOCK_ID' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Выберите инфоблок',
+            'NAME' => Loc::getMessage('CHOOSE_INFO_BLOCK'),
             'TYPE' => 'LIST',
             'VALUES' => $infoBlocks,
         ],
@@ -51,7 +52,7 @@ $arComponentParameters = [
         // Ссылка на список закладок
         'LIST_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL, ведущий на список закладок',
+            'NAME' => Loc::getMessage('LIST_URL'),
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/'
         ],
@@ -59,7 +60,7 @@ $arComponentParameters = [
         // Шаблон ссылки на детальную страницу закладки
         'ELEMENT_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL, ведущий на страницу с содержимым закладки',
+            'NAME' => Loc::getMessage('ELEMENT_URL'),
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/detail/#ELEMENT_ID#/'
         ],

@@ -4,7 +4,9 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
+
 use Bitrix\Iblock\ElementTable;
+use Bitrix\Main\Localization\Loc;
 
 // Если запросили удаление
 if (isset($_GET['delete'])) {
@@ -35,7 +37,7 @@ if (isset($_GET['delete'])) {
             die();
         }
 
-        $arResult['ERRORS'][] = 'Закладка не была удалена';
+        $arResult['ERRORS'][] = Loc::getMessage('ERROR_DELETE');
     }
 }
 

@@ -5,6 +5,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 }
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 
 if (!Loader::includeModule('iblock')) {
     return;
@@ -35,7 +36,7 @@ $arComponentParameters = [
         // Тип инфоблока
         'IBLOCK_TYPE' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Выберите тип инфоблока',
+            'NAME' => Loc::getMessage('CHOOSE_TYPE_OF_INFO_BLOCK'),
             'TYPE' => 'LIST',
             'VALUES' => $infoBlocksTypes,
             'REFRESH' => 'Y',
@@ -43,14 +44,14 @@ $arComponentParameters = [
         // Инфоблок
         'IBLOCK_ID' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Выберите инфоблок',
+            'NAME' => Loc::getMessage('CHOOSE_TYPE_OF_INFO_BLOCK'),
             'TYPE' => 'LIST',
             'VALUES' => $infoBlocks,
         ],
 
         'ELEMENT_COUNT' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Количество закладок на странице',
+            'NAME' => Loc::getMessage('COUNT'),
             'TYPE' => 'STRING',
             'DEFAULT' => '3',
         ],
@@ -58,7 +59,7 @@ $arComponentParameters = [
         // Ссылка на детальную страницу закладки
         'ELEMENT_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL на детальную страницу закладки',
+            'NAME' => Loc::getMessage('URL_DETAIL'),
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/detail/#ELEMENT_ID#/'
         ],
@@ -66,7 +67,7 @@ $arComponentParameters = [
         // Ссылка на детальную страницу закладки
         'ADD_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL добавления новой закладки',
+            'NAME' => Loc::getMessage('URL_ADD'),
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/add/'
         ],
@@ -75,7 +76,7 @@ $arComponentParameters = [
         'CACHE_TIME' => ['DEFAULT' => 3600],
         'CACHE_GROUPS' => [
             'PARENT' => 'CACHE_SETTINGS',
-            'NAME' => 'Учитывать права доступа',
+            'NAME' => Loc::getMessage('ACCESS_RIGHTS'),
             'TYPE' => 'CHECKBOX',
             'DEFAULT' => 'Y',
         ]
@@ -85,7 +86,7 @@ $arComponentParameters = [
 // Настройка постраничной навигации
 CIBlockParameters::AddPagerSettings(
     $arComponentParameters,
-    'Закладки',
+    Loc::getMessage('BOOKMARKS'),
     false,
     false
 );

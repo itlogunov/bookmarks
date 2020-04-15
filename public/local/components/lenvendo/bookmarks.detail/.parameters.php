@@ -5,6 +5,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 }
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 
 if (!Loader::includeModule('iblock')) {
     return;
@@ -33,7 +34,7 @@ while ($row = $query->Fetch()) {
 $arComponentParameters = [
     'GROUPS' => [
         'SEO' => [
-            'NAME' => 'Настройки SEO',
+            'NAME' => Loc::getMessage('SEO_SETTINGS'),
             'SORT' => 1000
         ],
     ],
@@ -41,7 +42,7 @@ $arComponentParameters = [
         // Тип инфоблока
         'IBLOCK_TYPE' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Выберите тип инфоблока',
+            'NAME' => Loc::getMessage('CHOOSE_TYPE_OF_INFO_BLOCK'),
             'TYPE' => 'LIST',
             'VALUES' => $infoBlocksTypes,
             'REFRESH' => 'Y',
@@ -49,7 +50,7 @@ $arComponentParameters = [
         // Инфоблок
         'IBLOCK_ID' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Выберите инфоблок',
+            'NAME' => Loc::getMessage('CHOOSE_INFO_BLOCK'),
             'TYPE' => 'LIST',
             'VALUES' => $infoBlocks,
         ],
@@ -57,7 +58,7 @@ $arComponentParameters = [
         // ID-закладки из $_REQUEST['ELEMENT_ID']
         'ELEMENT_ID' => [
             'PARENT' => 'BASE',
-            'NAME' => 'Идентификатор элемента',
+            'NAME' => Loc::getMessage('ITEM'),
             'TYPE' => 'STRING',
             'DEFAULT' => '={$_REQUEST["ELEMENT_ID"]}',
         ],
@@ -65,7 +66,7 @@ $arComponentParameters = [
         // Ссылка на список закладок
         'LIST_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL, ведущий на список закладок',
+            'NAME' => Loc::getMessage('LIST_URL'),
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/'
         ],
@@ -73,7 +74,7 @@ $arComponentParameters = [
         // Шаблон ссылки на детальную страницу закладки
         'ELEMENT_URL' => [
             'PARENT' => 'URL_TEMPLATES',
-            'NAME' => 'URL, ведущий на страницу с содержимым закладки',
+            'NAME' => Loc::getMessage('ELEMENT_URL'),
             'TYPE' => 'STRING',
             'DEFAULT' => '/bookmarks/detail/#ELEMENT_ID#/'
         ],
@@ -81,25 +82,25 @@ $arComponentParameters = [
         // SEO-параметры
         'SET_PAGE_TITLE' => [
             'PARENT' => 'SEO',
-            'NAME' => 'Устанавливать заголовок страницы',
+            'NAME' => Loc::getMessage('SET_PAGE_TITLE'),
             'TYPE' => 'CHECKBOX',
             'DEFAULT' => 'Y',
         ],
         'SET_BROWSER_TITLE' => [
             'PARENT' => 'SEO',
-            'NAME' => 'Устанавливать заголовок окна браузера',
+            'NAME' => Loc::getMessage('SET_BROWSER_TITLE'),
             'TYPE' => 'CHECKBOX',
             'DEFAULT' => 'Y',
         ],
         'SET_META_KEYWORDS' => [
             'PARENT' => 'SEO',
-            'NAME' => 'Устанавливать meta keywords',
+            'NAME' => Loc::getMessage('SET_META_KEYWORDS'),
             'TYPE' => 'CHECKBOX',
             'DEFAULT' => 'Y',
         ],
         'SET_META_DESCRIPTION' => [
             'PARENT' => 'SEO',
-            'NAME' => 'Устанавливать meta description',
+            'NAME' => Loc::getMessage('SET_META_DESCRIPTION'),
             'TYPE' => 'CHECKBOX',
             'DEFAULT' => 'Y',
         ],
@@ -108,12 +109,12 @@ $arComponentParameters = [
         'CACHE_TIME' => ['DEFAULT' => 3600],
         'CACHE_GROUPS' => [
             'PARENT' => 'CACHE_SETTINGS',
-            'NAME' => 'Учитывать права доступа',
+            'NAME' => Loc::getMessage('ACCESS_RIGHTS'),
             'TYPE' => 'CHECKBOX',
             'DEFAULT' => 'Y',
         ]
     ]
 ];
 
-// Если закладка не найдена, добавим дополнительную настройку
+// В случае, если закладка не будет найдена, добавим дополнительную настройку
 CIBlockParameters::Add404Settings($arComponentParameters, $arCurrentValues);

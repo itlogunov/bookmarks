@@ -5,21 +5,28 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 }
 
 use Bitrix\Iblock\ElementTable;
+use Bitrix\Main\Localization\Loc;
 
 // Если запросили удаление
 if (isset($_GET['delete'])) {
     if (isset($_GET['password'])) {
+        $filter = [
+            'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+            'ACTIVE' => 'Y',
+            'ID' => $arParams['ELEMENT_ID']
+        ];
+
         $password = trim(htmlspecialchars($_GET['password']));
-        $password = (strlen($password)) ? sha1($password) : '';
+        if (strlen($password) > 0) {
+            $filter['CODE'] = sha1($password);
+        } else {
+            $filter['CODE'] = '';
+        }
+
         $query = ElementTable::getList([
             'order' => [],
             'select' => ['ID'],
-            'filter' => [
-                'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-                'ACTIVE' => 'Y',
-                'CODE' => $password,
-                'ID' => $arParams['ELEMENT_ID']
-            ],
+            'filter' => $filter,
             'limit' => 1,
             'offset' => 0
         ]);
@@ -29,7 +36,7 @@ if (isset($_GET['delete'])) {
             die();
         }
 
-        $arResult['ERRORS'][] = 'Закладка не была удалена';
+        $arResult['ERRORS'][] = Loc::getMessage('ERROR_DELETE');
     }
 }
 

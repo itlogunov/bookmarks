@@ -16,11 +16,12 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @global CMain $APPLICATION */
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 use Bitrix\Iblock\Component\Tools;
 use \Bitrix\Iblock\InheritedProperty\ElementValues;
 
 if (!Loader::includeModule('iblock')) {
-    ShowError('Модуль «Информационные блоки» не установлен');
+    ShowError(Loc::getMessage('ERROR_MODULE_IBLOCK'));
     return;
 }
 
@@ -41,7 +42,7 @@ if (empty($arParams['ELEMENT_ID'])) {
 
 if ($notFound) {
     Tools::process404(
-        trim($arParams['MESSAGE_404']) ?: 'Закладка не найдена',
+        trim($arParams['MESSAGE_404']) ?: Loc::getMessage('NOT_FOUND'),
         true,
         $arParams['SET_STATUS_404'] === 'Y',
         $arParams['SHOW_404'] === 'Y',
@@ -143,7 +144,7 @@ if ($this->StartResultCache(false, $cacheDependence)) {
     } else {
         $this->AbortResultCache();
         Tools::process404(
-            trim($arParams['MESSAGE_404']) ?: 'Закладка не найдена',
+            trim($arParams['MESSAGE_404']) ?: Loc::getMessage('NOT_FOUND'),
             true,
             $arParams['SET_STATUS_404'] === 'Y',
             $arParams['SHOW_404'] === 'Y',
