@@ -17,6 +17,20 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @var CBitrixComponent $component */
 
 $this->setFrameMode(true);
+
+// Сортировка
+$sortingField = 'DATE_CREATE';
+$sortingOrder = 'DESC';
+
+if (isset($_GET['sort']) && htmlspecialchars($_GET['sort']) == 'url') {
+    $sortingField = 'NAME';
+} elseif (isset($_GET['sort']) && htmlspecialchars($_GET['sort']) == 'title') {
+    $sortingField = 'PROPERTY_META_TITLE';
+}
+
+if (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc') {
+    $sortingOrder = 'ASC';
+}
 ?>
 
 <?php
@@ -24,6 +38,8 @@ $APPLICATION->IncludeComponent(
     'lenvendo:bookmarks.list',
     '.default',
     [
+        'SORTING_FIELD' => $sortingField,
+        'SORTING_ORDER' => $sortingOrder,
         'CACHE_TYPE' => $arParams['CACHE_TYPE'],
         'CACHE_TIME' => $arParams['CACHE_TIME'],
         'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],

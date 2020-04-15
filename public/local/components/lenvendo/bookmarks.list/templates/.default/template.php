@@ -17,37 +17,118 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @var CBitrixComponent $component */
 
 $this->setFrameMode(false);
+$currentPage = $APPLICATION->GetCurPage();
 ?>
 
-<a href="<?= $arParams['ADD_URL']; ?>">Добавить закладку</a>
-<br>
-<br>
+<?php if (isset($arResult['ITEMS']) && count($arResult['ITEMS']) > 0): ?>
 
-<div id="bookmarks__items">
+    <div class="btn-group mt-4 mb-4" role="group">
+        <a href="<?= $arParams['ADD_URL']; ?>" class="btn btn-primary">Добавить еще одну закладку</a>
+        <a href="<?= $currentPage . 'export.php?list=' . $arParams['IBLOCK_ID'] ; ?>" class="btn btn-link">Выгрузить в эксель</a>
+    </div>
+
     <?php if ($arParams['DISPLAY_TOP_PAGER'] == 'Y'): ?>
-        <div class="bookmarks__items–pagination">
-            <?= $arResult['NAV_STRING']; ?>
-        </div>
+        <?= $arResult['NAV_STRING']; ?>
     <?php endif; ?>
 
-    <section>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">
+                <?php if (!isset($_GET['sort']) || htmlspecialchars($_GET['sort']) == 'date'): ?>
+                    <?php if (!isset($_GET['order']) || htmlspecialchars($_GET['order']) == 'desc'): ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=date&order=asc', ['sort', 'order']); ?>">
+                            Дата ↓
+                        </a>
+                    <?php elseif (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc'): ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('', ['sort', 'order']); ?>">
+                            Дата ↑
+                        </a>
+                    <?php else: ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=date&order=asc', ['sort', 'order']); ?>">
+                            Дата ↓
+                        </a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <a href="<?= $APPLICATION->GetCurPageParam('', ['sort', 'order']); ?>">
+                        Дата
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">Favicon</th>
+            <th scope="col">
+                <?php if (isset($_GET['sort']) && htmlspecialchars($_GET['sort']) == 'url'): ?>
+                    <?php if (!isset($_GET['order']) || htmlspecialchars($_GET['order']) == 'desc'): ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=asc', ['sort', 'order']); ?>">
+                            URL ↓
+                        </a>
+                    <?php elseif (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc'): ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=desc', ['sort', 'order']); ?>">
+                            URL ↑
+                        </a>
+                    <?php else: ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=asc', ['sort', 'order']); ?>">
+                            URL ↓
+                        </a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <a href="<?= $APPLICATION->GetCurPageParam('sort=url&order=asc', ['sort', 'order']); ?>">
+                        URL
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">
+                <?php if (isset($_GET['sort']) && htmlspecialchars($_GET['sort']) == 'title'): ?>
+                    <?php if (!isset($_GET['order']) || htmlspecialchars($_GET['order']) == 'desc'): ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=asc', ['sort', 'order']); ?>">
+                            Заголовок ↓
+                        </a>
+                    <?php elseif (isset($_GET['order']) && htmlspecialchars($_GET['order']) == 'asc'): ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=desc', ['sort', 'order']); ?>">
+                            Заголовок ↑
+                        </a>
+                    <?php else: ?>
+                        <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=asc', ['sort', 'order']); ?>">
+                            Заголовок ↓
+                        </a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <a href="<?= $APPLICATION->GetCurPageParam('sort=title&order=asc', ['sort', 'order']); ?>">
+                        Заголовок
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
         <?php foreach ($arResult['ITEMS'] as $item): ?>
-            <article>
-                <a href="<?= $item['DETAIL_PAGE_URL']; ?>">
-                    <img src="<?= $item['DETAIL_PICTURE']['SRC']; ?>"
-                         alt="<?= $item['DETAIL_PICTURE']['ALT']; ?>"
-                         title="<?= $item['DETAIL_PICTURE']['TITLE']; ?>"/>
-                </a>
-                <span><?= $item['DATE_CREATE']; ?></span>
-                <span><?= $item['PROPERTIES']['META_TITLE']['VALUE']; ?></span>
-                <a href="<?= $item['DETAIL_PAGE_URL']; ?>"><?= $item['NAME']; ?></a>
-            </article>
+            <tr>
+                <td><?= $item['DATE_CREATE']; ?></td>
+                <td>
+                    <?php if (!empty($item['DETAIL_PICTURE'])): ?>
+                        <img src="<?= $item['DETAIL_PICTURE']['SRC']; ?>"
+                             alt="<?= $item['DETAIL_PICTURE']['ALT']; ?>"
+                             title="<?= $item['DETAIL_PICTURE']['TITLE']; ?>"/>
+                    <?php endif; ?>
+                </td>
+                <td><a href="<?= $item['NAME']; ?>" target="_blank"><?= $item['NAME']; ?></a></td>
+                <td><?= $item['PROPERTIES']['META_TITLE']['VALUE']; ?></td>
+                <td>
+                    <a href="<?= $item['DETAIL_PAGE_URL']; ?>">Подробно</a>
+                </td>
+            </tr>
         <?php endforeach; ?>
-    </section>
+        </tbody>
+    </table>
 
     <?php if ($arParams['DISPLAY_BOTTOM_PAGER'] == 'Y'): ?>
-        <div class="bookmarks__items–pagination">
-            <?= $arResult['NAV_STRING']; ?>
-        </div>
+        <?= $arResult['NAV_STRING']; ?>
     <?php endif; ?>
-</div>
+
+<?php else: ?>
+
+    <p class="mt-5">Добавьте свою первую закладку <a href="<?= $arParams['ADD_URL']; ?>" class="btn btn-primary ml-2">Добавить
+            закладку</a></p>
+
+<?php endif; ?>

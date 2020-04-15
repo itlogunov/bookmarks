@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
@@ -17,19 +17,23 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
 /** @var CBitrixComponent $component */
 
 $this->setFrameMode(false);
+$APPLICATION->SetPageProperty('title', 'Добавление закладки');
 $APPLICATION->SetTitle('Добавление закладки');
 $currentPage = $APPLICATION->GetCurPage();
 ?>
 
 <?php if (isset($arResult['ERRORS']) && !empty($arResult['ERRORS'])) : ?>
-    <?php foreach ($arResult['ERRORS'] as $error): ?>
-        <?= $error; ?>
-        <br>
-    <?php endforeach; ?>
-    <br>
+    <div class="alert alert-danger mb-0 mt-4" role="alert">
+        <?php foreach ($arResult['ERRORS'] as $error): ?>
+            <?= $error; ?>
+            <br>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>
 
-<form action="<?= $currentPage; ?>">
-    <input type="text" name="url" placeholder="Введите url" size="80" required>
-    <button>Добавить</button>
+<form action="<?= $currentPage; ?>" class="justify-content-center mt-4">
+    <div class="form-group">
+        <input type="text" class="form-control" name="url" placeholder="Вставьте URL">
+    </div>
+    <button type="submit" class="btn btn-link">Добавить</button>
 </form>

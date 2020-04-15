@@ -15,6 +15,8 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 /** @global CMain $APPLICATION */
 
 use Bitrix\Main\Loader;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Bitrix\Iblock\InheritedProperty\ElementValues;
 
 if (!Loader::includeModule('iblock')) {
@@ -54,10 +56,13 @@ $navParams = [
 ];
 $navigation = CDBResult::GetNavParams($navParams);
 
+$arParams['SORTING_FIELD'] = is_null($arParams['SORTING_FIELD']) ? 'DATE_CREATE' : $arParams['SORTING_FIELD'];
+$arParams['SORTING_ORDER'] = is_null($arParams['SORTING_ORDER']) ? 'DESC' : $arParams['SORTING_ORDER'];
+
 $cacheDependence = [$arParams['CACHE_GROUPS'] ? $USER->GetGroups() : false, $navigation];
 if ($this->StartResultCache(false, $cacheDependence)) {
 
-    $sorting = ['DATE_CREATE' => 'DESC'];
+    $sorting = [$arParams['SORTING_FIELD'] => $arParams['SORTING_ORDER']];
     $select = [
         'ID',
         'IBLOCK_ID',
@@ -70,7 +75,6 @@ if ($this->StartResultCache(false, $cacheDependence)) {
     $filter = [
         'IBLOCK_ID' => $arParams['IBLOCK_ID'],
         'IBLOCK_ACTIVE' => 'Y',
-        'ID' => $ELEMENT_ID,
         'ACTIVE' => 'Y',
         'ACTIVE_DATE' => 'Y',
         'CHECK_PERMISSIONS' => 'Y'

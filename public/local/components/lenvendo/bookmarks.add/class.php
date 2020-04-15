@@ -184,6 +184,11 @@ class BookmarksAdd extends CBitrixComponent
         $favicon = $crawler->filterXPath('//link[@rel="shortcut icon"]');
         if ($favicon->count()) {
             $this->favicon = $favicon->attr('href');
+        } else {
+            $favicon = $crawler->filterXPath('//link[@rel="icon"]');
+            if ($favicon->count()) {
+                $this->favicon = $favicon->attr('href');
+            }
         }
 
         $metaTitle = $crawler->filterXpath('//title');
@@ -254,6 +259,11 @@ class BookmarksAdd extends CBitrixComponent
             // Сохраняем в png
             $favicon = CFile::MakeFileArray($favicon);
             if (is_array($favicon)) {
+
+                if ($favicon['type'] == 'unknown') {
+                    return 0;
+                }
+
                 $filePath = $_SERVER['DOCUMENT_ROOT'] . '/upload/' . sha1(date('d.m.Y H:i:s')) . '.png';
                 Image::configure(['driver' => 'imagick']);
                 Image::make($favicon['tmp_name'])->save($filePath);

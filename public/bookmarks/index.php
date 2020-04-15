@@ -1,6 +1,7 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/header.php';
-$APPLICATION->SetTitle("Закладки");
+$APPLICATION->SetPageProperty('title', 'Закладки');
+$APPLICATION->SetTitle('Закладки');
 ?><?$APPLICATION->IncludeComponent(
 	"lenvendo:bookmarks", 
 	".default", 
@@ -20,8 +21,8 @@ $APPLICATION->SetTitle("Закладки");
 		"LIST_ELEMENT_COUNT" => "4",
 		"MESSAGE_404" => "",
 		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => "modern",
-		"PAGER_TITLE" => "Закладки",
+		"PAGER_TEMPLATE" => "bootstrap_v4",
+		"PAGER_TITLE" => "Страницы",
 		"SEF_FOLDER" => "/bookmarks/",
 		"SEF_MODE" => "Y",
 		"SET_STATUS_404" => "Y",

@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 
@@ -19,21 +19,28 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) {
 $this->setFrameMode(false);
 ?>
 
-<article>
-    <p>Url страницы: <a href="<?= $arResult['NAME']; ?>" target="_blank"><?= $arResult['NAME']; ?></a></p>
-    <p>Дата добавления: <?= $arResult['DATE_CREATE']; ?></p>
-
+<div class="card">
     <?php if (!empty($arResult['DETAIL_PICTURE'])): ?>
-        <p>
-            Favicon: <img src="<?= $arResult['DETAIL_PICTURE']['SRC']; ?>"
-                          alt="<?= $arResult['DETAIL_PICTURE']['ALT']; ?>"
-                          title="<?= $arResult['DETAIL_PICTURE']['TITLE']; ?>" />
-        </p>
-    <?php endif ?>
+        <img class="card-img-top-favicon" src="<?= $arResult['DETAIL_PICTURE']['SRC']; ?>"
+             alt="<?= $arResult['DETAIL_PICTURE']['ALT']; ?>"
+             title="<?= $arResult['DETAIL_PICTURE']['TITLE']; ?>"/>
+    <?php endif; ?>
+    <div class="card-body text-left">
+        <h5 class="card-title mb-4">Заголовок: <?= $arResult['PROPERTIES']['META_TITLE']['VALUE']; ?></h5>
+        <h5 class="card-subtitle mb-3 text-muted">Дата добавления: <?= $arResult['DATE_CREATE']; ?></h5>
+        <?php if ($arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']): ?>
+            <p class="card-text">Description: <?= $arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']; ?></p>
+        <?php endif; ?>
+        <?php if ($arResult['PROPERTIES']['META_KEYWORDS']['VALUE']): ?>
+            <p class="card-text">Keywords: <?= $arResult['PROPERTIES']['META_KEYWORDS']['VALUE']; ?></p>
+        <?php endif; ?>
 
-    <p>Meta Title: <?= $arResult['PROPERTIES']['META_TITLE']['VALUE']; ?></p>
-    <p>Meta Description: <?= $arResult['PROPERTIES']['META_DESCRIPTION']['VALUE']; ?></p>
-    <p>Meta Keywords: <?= $arResult['PROPERTIES']['META_KEYWORDS']['VALUE']; ?></p>
+        <div class="text-right">
+            <a href="<?= $arResult['NAME']; ?>" class="btn btn-link" target="_blank">Перейти на страницу</a>
+        </div>
+    </div>
+</div>
 
-    <p><a href="<?= $arResult['LIST_URL']; ?>">В список закладок</a></p>
-</article>
+<div class="text-left mt-5">
+    <a href="<?= $arResult['LIST_URL']; ?>" class="btn btn-link">Вернуться в список закладок</a>
+</div>
